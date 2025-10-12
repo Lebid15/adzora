@@ -1,4 +1,4 @@
-name: Deploy frontend to Namecheap via SFTP
+name: Deploy frontend to Namecheap (FTPS)
 
 on:
   push:
@@ -12,15 +12,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # رفع محتويات frontend إلى public_html دون حذف أي ملفات موجودة (نُبقي الفيديو)
-      - name: SFTP Deploy
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+      - name: FTP Deploy (FTPS)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          server: ${{ secrets.SFTP_HOST }}
-          port: ${{ secrets.SFTP_PORT }}
-          username: ${{ secrets.SFTP_USER }}
+          server: ${{ secrets.SFTP_HOST }}   # server196.web-hosting.com
+          username: ${{ secrets.SFTP_USER }} # deploy@adzora.net
           password: ${{ secrets.SFTP_PASS }}
-          local_path: ./frontend/*
-          remote_path: /public_html
-          sftp_only: true
-          delete_remote_files: false
+          protocol: ftps
+          port: 21
+          local-dir: frontend/
+          server-dir: /public_html/
+          exclude: |
+            **/.git*
+            **/.DS_Store
+            **/node_modules/**
