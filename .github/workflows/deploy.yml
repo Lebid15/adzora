@@ -23,8 +23,4 @@ jobs:
           local_path: ./frontend/*
           remote_path: /public_html
           sftp_only: true
-          delete: false
-          exclude: |
-            **/.git*
-            **/.DS_Store
-            **/node_modules/**
+          delete_remote_files: false
