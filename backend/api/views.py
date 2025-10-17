@@ -4,15 +4,13 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from content.models import NavigationLink, SiteConfiguration, SocialLink, ThemeSettings
+from content.models import SiteConfiguration, SocialLink
 from media_library.models import ImageAsset, Video
 
 from .serializers import (
 	ImageAssetSerializer,
-	NavigationLinkSerializer,
 	SiteConfigurationSerializer,
 	SocialLinkSerializer,
-	ThemeSettingsSerializer,
 	VideoSerializer,
 )
 
@@ -22,7 +20,6 @@ class HomePageAPIView(APIView):
 
 	def get(self, request, *args, **kwargs):
 		site_config = SiteConfiguration.load()
-		theme = ThemeSettings.load()
 
 		featured_video = (
 			Video.objects.select_related("category")
@@ -45,10 +42,6 @@ class HomePageAPIView(APIView):
 
 		payload = {
 			"site": SiteConfigurationSerializer(site_config, context={"request": request}).data,
-			"theme": ThemeSettingsSerializer(theme, context={"request": request}).data,
-			"navigation": NavigationLinkSerializer(
-				NavigationLink.objects.all(), many=True, context={"request": request}
-			).data,
 			"social": SocialLinkSerializer(
 				SocialLink.objects.all(), many=True, context={"request": request}
 			).data,

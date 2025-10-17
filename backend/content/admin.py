@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-from .models import NavigationLink, SiteConfiguration, SocialLink, ThemeSettings
+from .models import SiteConfiguration, SocialLink
 
 
 class SingletonAdmin(admin.ModelAdmin):
@@ -27,40 +27,8 @@ class SingletonAdmin(admin.ModelAdmin):
 @admin.register(SiteConfiguration)
 class SiteConfigurationAdmin(SingletonAdmin):
 	fieldsets = (
-		("Branding", {"fields": ("site_name", "logo", "tagline", "featured_video_heading")}),
-		("Footer", {"fields": ("footer_text",)}),
+		("Branding", {"fields": ("site_name", "logo", "tagline")}),
 	)
-
-
-@admin.register(ThemeSettings)
-class ThemeSettingsAdmin(SingletonAdmin):
-	fieldsets = (
-		("Light Mode", {
-			"fields": (
-				"light_background",
-				"light_surface",
-				"light_text",
-				"light_accent",
-			)
-		}),
-		("Dark Mode", {
-			"fields": (
-				"dark_background",
-				"dark_surface",
-				"dark_text",
-				"dark_accent",
-			)
-		}),
-		("Defaults", {"fields": ("default_mode",)}),
-	)
-
-
-@admin.register(NavigationLink)
-class NavigationLinkAdmin(admin.ModelAdmin):
-	list_display = ("label", "url", "order")
-	list_editable = ("order",)
-	search_fields = ("label", "url")
-	ordering = ("order",)
 
 
 @admin.register(SocialLink)

@@ -6,3 +6,28 @@ __pycache__/
 *.pyc
 dist/
 build/
+
+# Django
+*.sqlite3
+db.sqlite3
+/backend/db.sqlite3
+/backend/media/
+/backend/staticfiles/
+*.log
+
+# Python virtual environment
+.venv/
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

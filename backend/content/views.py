@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 
 from media_library.models import ImageAsset, Video
 
-from .models import NavigationLink, SiteConfiguration, SocialLink, ThemeSettings
+from .models import SiteConfiguration, SocialLink
 
 
 class HomePageView(TemplateView):
@@ -13,7 +13,6 @@ class HomePageView(TemplateView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		site_config = SiteConfiguration.load()
-		theme = ThemeSettings.load()
 
 		featured_video = (
 			Video.objects.select_related("category")
@@ -31,8 +30,6 @@ class HomePageView(TemplateView):
 		context.update(
 			{
 				"site_config": site_config,
-				"theme_palette": theme.as_palette(),
-				"navigation_links": NavigationLink.objects.all(),
 				"social_links": SocialLink.objects.all(),
 				"featured_video": featured_video,
 				"gallery_items": ImageAsset.objects.select_related("category").prefetch_related(

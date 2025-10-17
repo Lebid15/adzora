@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from rest_framework import serializers
 
-from content.models import NavigationLink, SiteConfiguration, SocialLink, ThemeSettings
+from content.models import SiteConfiguration, SocialLink
 from media_library.models import Category, ImageAsset, Tag, Video
 
 
@@ -14,8 +14,6 @@ class SiteConfigurationSerializer(serializers.ModelSerializer):
         fields = (
             "site_name",
             "tagline",
-            "featured_video_heading",
-            "footer_text",
             "logo_url",
         )
 
@@ -26,23 +24,6 @@ class SiteConfigurationSerializer(serializers.ModelSerializer):
                 return request.build_absolute_uri(obj.logo.url)
             return obj.logo.url
         return None
-
-
-class ThemeSettingsSerializer(serializers.ModelSerializer):
-    palette = serializers.SerializerMethodField()
-
-    class Meta:
-        model = ThemeSettings
-        fields = ("default_mode", "palette")
-
-    def get_palette(self, obj: ThemeSettings) -> dict[str, dict[str, str]]:
-        return obj.as_palette()
-
-
-class NavigationLinkSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = NavigationLink
-        fields = ("label", "url", "order")
 
 
 class SocialLinkSerializer(serializers.ModelSerializer):
