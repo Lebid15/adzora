@@ -1,0 +1,159 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{{ site_config.site_name }} — Creative Advertising Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'content/site.css' %}" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="brand">
+        {% if site_config.logo %}
+        <img src="{{ site_config.logo.url }}" alt="{{ site_config.site_name }} Logo" />
+        {% endif %}
+        <div class="brand-copy">
+          <span class="name">{{ site_config.site_name }}</span>
+          {% if site_config.tagline %}
+          <span class="tagline">{{ site_config.tagline }}</span>
+          {% endif %}
+        </div>
+      </div>
+      <nav class="site-nav" aria-label="Primary">
+        {% for link in navigation_links %}
+        <a href="{{ link.url }}">{{ link.label }}</a>
+        {% empty %}
+        <span class="placeholder">Add navigation links from the admin panel.</span>
+        {% endfor %}
+      </nav>
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle color theme">
+        <span class="theme-toggle__icon" aria-hidden="true">☀️</span>
+      </button>
+    </header>
+
+    <main class="site-main">
+      <section class="hero">
+        <div class="hero__content">
+          <h1>{{ site_config.featured_video_heading }}</h1>
+          <p>
+            {% if featured_video %}
+              {{ featured_video.description|default:"Explore the latest from Adzora's creative lab." }}
+            {% else %}
+              Showcase your standout campaigns by adding a featured video from the admin panel.
+            {% endif %}
+          </p>
+        </div>
+        <div class="hero__media">
+          {% if featured_video %}
+            {% if featured_video.embed_url %}
+            <div class="video-embed">
+              <iframe
+                src="{{ featured_video.embed_url }}"
+                title="{{ featured_video.title }}"
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            {% elif featured_video.video_file %}
+            <video controls{% if featured_video.thumbnail %} poster="{{ featured_video.thumbnail.url }}"{% endif %}>
+              <source src="{{ featured_video.video_file.url }}" />
+              Your browser does not support HTML5 video.
+            </video>
+            {% else %}
+            <div class="video-empty">
+              <p>The featured video is missing media. Upload a file or add an embed URL.</p>
+            </div>
+            {% endif %}
+          {% else %}
+          <div class="video-empty">
+            <p>No featured video yet. Flag a video as featured from the media library.</p>
+          </div>
+          {% endif %}
+        </div>
+      </section>
+
+      <section class="gallery" aria-labelledby="gallery-heading">
+        <div class="gallery__header">
+          <h2 id="gallery-heading">Recent visuals</h2>
+          <p>Highlight posters, visuals, and infographics from your creative archive.</p>
+        </div>
+        <div class="gallery__grid">
+          {% for asset in gallery_items %}
+          <article class="gallery-card">
+            <div class="gallery-card__media">
+              <img src="{{ asset.file.url }}" alt="{{ asset.title }}" loading="lazy" />
+            </div>
+            <div class="gallery-card__body">
+              <h3>{{ asset.title }}</h3>
+              {% if asset.category %}<span class="pill">{{ asset.category.name }}</span>{% endif %}
+              {% with tags=asset.tags.all %}
+                {% if tags %}
+                <div class="tags">
+                  {% for tag in tags %}
+                  <span>#{{ tag.name }}</span>
+                  {% endfor %}
+                </div>
+                {% endif %}
+              {% endwith %}
+            </div>
+          </article>
+          {% empty %}
+          <div class="gallery-empty">
+            <p>Upload images or posters from the media library to populate this gallery.</p>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="social-links" aria-label="Social media">
+        {% for link in social_links %}
+        <a href="{{ link.url }}" target="_blank" rel="noreferrer noopener">
+          {% if link.icon %}<span class="icon {{ link.icon }}" aria-hidden="true"></span>{% endif %}
+          <span class="sr-only">{{ link.platform }}</span>
+        </a>
+        {% empty %}
+        <span class="placeholder">Add social links from the admin panel.</span>
+        {% endfor %}
+      </div>
+      <p>{{ site_config.footer_text }}</p>
+    </footer>
+
+  {{ theme_palette|json_script:"theme-palette-data" }}
+    <script>
+      const paletteData = JSON.parse(document.getElementById('theme-palette-data').textContent);
+      const root = document.documentElement;
+      const toggleButton = document.getElementById('theme-toggle');
+      const icon = toggleButton.querySelector('.theme-toggle__icon');
+      const preferred = localStorage.getItem('adzora-theme') || paletteData.default || 'light';
+
+      function applyTheme(mode) {
+        const selection = paletteData[mode] || paletteData.light;
+        root.dataset.theme = mode;
+        root.style.setProperty('--color-background', selection.background);
+        root.style.setProperty('--color-surface', selection.surface);
+        root.style.setProperty('--color-text', selection.text);
+        root.style.setProperty('--color-accent', selection.accent);
+        icon.textContent = mode === 'light' ? '🌙' : '☀️';
+      }
+
+      function toggleTheme() {
+        const nextMode = root.dataset.theme === 'light' ? 'dark' : 'light';
+        applyTheme(nextMode);
+        localStorage.setItem('adzora-theme', nextMode);
+      }
+
+      applyTheme(preferred);
+      toggleButton.addEventListener('click', toggleTheme);
+    </script>
+  </body>
+</html>
