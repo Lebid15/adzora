@@ -71,7 +71,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
           >
-            نصنع محتوى بصري إبداعي يحكي قصتك بطريقة مميزة
+            نصنع محتوى بصري إبداعي يحكي قصتك بطريقة مميزة ✨
           </motion.p>
 
           <motion.p
