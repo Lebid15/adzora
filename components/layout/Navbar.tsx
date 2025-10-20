@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { HiMenu, HiX } from 'react-icons/hi';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 
 const navLinks = [
   { label: 'الرئيسية', href: '/' },
@@ -18,7 +19,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 dark:bg-gray-900/80 dark:border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 flex-row-reverse">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <motion.div
@@ -31,7 +32,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 space-x-reverse">
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.href}
@@ -41,7 +42,7 @@ export default function Navbar() {
               >
                 <Link
                   href={link.href}
-                  className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium dark:text-gray-300 dark:hover:text-orange-500"
+                  className="text-gray-700 hover:text-orange-500 transition-colors duration-200 font-medium dark:text-gray-300 dark:hover:text-orange-500 whitespace-nowrap"
                 >
                   {link.label}
                 </Link>
@@ -49,13 +50,18 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-md text-gray-700 hover:text-orange-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
-          >
-            {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
-          </button>
+          {/* Left Side: Theme Toggle & Mobile Menu */}
+          <div className="flex items-center gap-3">
+            <ThemeToggle />
+            
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden p-2 rounded-md text-gray-700 hover:text-orange-500 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+            >
+              {isOpen ? <HiX size={24} /> : <HiMenu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
