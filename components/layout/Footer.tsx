@@ -1,14 +1,15 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaYoutube, FaTiktok } from 'react-icons/fa';
+import { FaTelegram } from 'react-icons/fa6';
 
 const socialLinks = [
-  { icon: FaFacebook, href: '#', label: 'Facebook' },
-  { icon: FaInstagram, href: '#', label: 'Instagram' },
-  { icon: FaTwitter, href: '#', label: 'Twitter' },
-  { icon: FaLinkedin, href: '#', label: 'LinkedIn' },
-  { icon: FaYoutube, href: '#', label: 'YouTube' },
+  { icon: FaFacebook, href: 'https://facebook.com', label: 'Facebook' },
+  { icon: FaInstagram, href: 'https://instagram.com', label: 'Instagram' },
+  { icon: FaYoutube, href: 'https://www.youtube.com/@adzora.n', label: 'YouTube' },
+  { icon: FaTiktok, href: 'https://www.tiktok.com/@adzora.net', label: 'TikTok' },
+  { icon: FaTelegram, href: 'https://t.me', label: 'Telegram' },
 ];
 
 export default function Footer() {
@@ -17,7 +18,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
-          <div>
+          <div className="text-right">
             <h3 className="text-2xl font-bold text-orange-500 mb-4">Adzora</h3>
             <p className="text-gray-400">
               نحن متخصصون في تصميم الإنفوجرافيك والمحتوى البصري الإبداعي
@@ -25,7 +26,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div>
+          <div className="text-center">
             <h4 className="text-lg font-semibold mb-4">روابط سريعة</h4>
             <ul className="space-y-2">
               <li>
@@ -49,7 +50,7 @@ export default function Footer() {
           {/* Social Media */}
           <div>
             <h4 className="text-lg font-semibold mb-4">تابعنا</h4>
-            <div className="flex space-x-4 space-x-reverse">
+            <div className="flex gap-4">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.label}
@@ -73,7 +74,9 @@ export default function Footer() {
 
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-          <p>© {new Date().getFullYear()} Adzora. جميع الحقوق محفوظة.</p>
+          <p style={{ unicodeBidi: 'plaintext' }}>
+            Adzora 2025 © جميع الحقوق محفوظة
+          </p>
         </div>
       </div>
     </footer>

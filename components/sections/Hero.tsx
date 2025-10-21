@@ -54,7 +54,7 @@ export default function Hero() {
           transition={{ duration: 0.8 }}
         >
           <motion.h1
-            className="text-5xl md:text-7xl font-bold mb-6"
+            className="text-3xl md:text-5xl font-bold mb-6"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.8 }}
@@ -75,7 +75,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.p
-            className="text-lg text-gray-500 dark:text-gray-400 mb-12"
+            className="text-sm md:text-base text-gray-500 dark:text-gray-400 mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -93,7 +93,7 @@ export default function Hero() {
               href="#gallery"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow"
+              className="inline-flex items-center justify-center w-full sm:w-48 px-8 py-4 bg-gradient-to-r from-orange-500 to-pink-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow"
             >
               استكشف أعمالنا
             </motion.a>
@@ -102,10 +102,42 @@ export default function Hero() {
               href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow border-2 border-gray-200 dark:border-gray-700"
+              className="inline-flex items-center justify-center w-full sm:w-48 px-8 py-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow border-2 border-gray-200 dark:border-gray-700"
             >
               تواصل معنا
             </motion.a>
+          </motion.div>
+
+          {/* Video Section */}
+          <motion.div
+            className="w-full max-w-2xl mx-auto mt-16 mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.0, duration: 0.8 }}
+          >
+            <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-pink-200 dark:from-gray-700 dark:to-gray-600 flex items-center justify-center">
+                <div className="text-center">
+                  <p className="text-gray-600 dark:text-gray-300 text-lg font-semibold">
+                    🎬 فيديو تعريفي للشركة
+                  </p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                    أضف رابط الفيديو الخاص بك هنا
+                  </p>
+                </div>
+              </div>
+              {/* استبدل الـ src أدناه برابط الفيديو الفعلي - للدقة العالية جداً استخدم quality=high */}
+              <iframe
+                width="100%"
+                height="100%"
+                src="https://www.youtube.com/embed/QjhUZTrd2X8?quality=high&rel=0&modestbranding=1&controls=1&autoplay=0"
+                title="فيديو تعريفي"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                style={{ position: 'absolute', top: 0, left: 0 }}
+              />
+            </div>
           </motion.div>
 
           {/* Scroll Indicator */}

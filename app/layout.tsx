@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Adzora - تصميم إنفوجرافيك ومحتوى بصري إبداعي",
+  title: "Adzora - تصميم بصري إبداعي",
   description: "نحن متخصصون في تصميم الإنفوجرافيك والمحتوى البصري الإبداعي. إنشاء تصاميم مميزة وفريدة لعلامتك التجارية",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="ar" dir="rtl" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -43,6 +43,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
         <Navbar />
         {children}

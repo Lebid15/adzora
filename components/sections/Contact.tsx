@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiMail, HiPhone, HiLocationMarker } from 'react-icons/hi';
+import { FaWhatsapp, FaTelegram } from 'react-icons/fa';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -67,19 +68,31 @@ export default function Contact() {
                 {
                   icon: HiMail,
                   title: 'البريد الإلكتروني',
-                  value: 'info@adzora.net',
-                  href: 'mailto:info@adzora.net',
+                  value: 'adzora@hotmail.com',
+                  href: 'mailto:adzora@hotmail.com',
+                },
+                {
+                  icon: FaWhatsapp,
+                  title: 'واتساب',
+                  value: '+90 539 593 0640',
+                  href: 'https://wa.me/905395930640',
+                },
+                {
+                  icon: FaTelegram,
+                  title: 'تلغرام',
+                  value: '+90 539 593 0640',
+                  href: 'https://t.me/905395930640',
                 },
                 {
                   icon: HiPhone,
                   title: 'رقم الهاتف',
-                  value: '+966 50 123 4567',
-                  href: 'tel:+966501234567',
+                  value: '+90 539 593 0640',
+                  href: 'tel:+905395930640',
                 },
                 {
                   icon: HiLocationMarker,
                   title: 'الموقع',
-                  value: 'الرياض، المملكة العربية السعودية',
+                  value: 'Online',
                   href: '#',
                 },
               ].map((item, index) => (
@@ -91,19 +104,14 @@ export default function Contact() {
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ x: 5 }}
-                  className="flex items-start space-x-4 space-x-reverse group"
+                  className="flex items-center gap-4 group"
                 >
                   <div className="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center group-hover:bg-orange-500 transition-colors">
                     <item.icon className="w-6 h-6 text-orange-500 group-hover:text-white transition-colors" />
                   </div>
-                  <div>
-                    <h4 className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                      {item.title}
-                    </h4>
-                    <p className="text-lg text-gray-900 dark:text-white font-medium">
-                      {item.value}
-                    </p>
-                  </div>
+                  <p className="text-lg text-gray-900 dark:text-white font-medium" dir={['رقم الهاتف', 'واتساب', 'تلغرام'].includes(item.title) ? 'ltr' : 'auto'}>
+                    {item.value}
+                  </p>
                 </motion.a>
               ))}
             </div>
@@ -119,9 +127,7 @@ export default function Contact() {
                 ساعات العمل
               </h4>
               <p className="text-gray-600 dark:text-gray-400">
-                الأحد - الخميس: 9:00 صباحاً - 6:00 مساءً
-                <br />
-                الجمعة - السبت: مغلق
+                السبت - الخميس: 9:00 - 18:00
               </p>
             </motion.div>
           </motion.div>

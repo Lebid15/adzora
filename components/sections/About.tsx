@@ -35,7 +35,7 @@ export default function About() {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             من نحن
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             نحن فريق من المصممين المحترفين المتخصصين في تحويل الأفكار إلى تصاميم بصرية مذهلة
           </p>
         </motion.div>
@@ -75,10 +75,10 @@ export default function About() {
           className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center"
         >
           {[
-            { number: '500+', label: 'مشروع منجز' },
-            { number: '200+', label: 'عميل سعيد' },
-            { number: '50+', label: 'جائزة' },
-            { number: '5+', label: 'سنوات خبرة' },
+            { number: '100+', label: 'مشروع منجز' },
+            { number: '100+', label: 'عميل سعيد' },
+            { number: '0+', label: 'جائزة' },
+            { number: '2+', label: 'سنوات خبرة' },
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
